@@ -60,9 +60,114 @@ body{
   to{box-shadow:0 0 35px #ffd700;}
 }
 
-h1{font-size:26px;margin-top:10px;}
+h1{font-size:26px;}
 h2{font-size:32px;color:#ffd700;margin:15px 0;}
 p{font-size:15px;line-height:1.6;}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(40px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* Buttons */
+.sound-btn,.cake-btn{
+  position:fixed;
+  right:20px;
+  background:#ffd700;
+  border:none;
+  padding:12px 16px;
+  border-radius:30px;
+  cursor:pointer;
+  box-shadow:0 10px 20px rgba(0,0,0,.4);
+  z-index:5;
+}
+.sound-btn{bottom:20px;}
+.cake-btn{bottom:70px;}
+
+/* Cake */
+.cake{
+  font-size:70px;
+  display:none;
+  animation:bounce 1s infinite;
+}
+@keyframes bounce{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-15px);}
+}
+
+/* Confetti */
+.confetti{
+  position:fixed;
+  top:-10px;
+  width:10px;
+  height:10px;
+  animation:confetti 4s linear forwards;
+}
+@keyframes confetti{
+  to{transform:translateY(110vh) rotate(360deg);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- YouTube Background -->
+<div class="video-bg">
+  <iframe id="yt"
+    src="https://www.youtube.com/embed/s6MW8mGHfdg?autoplay=1&mute=1&loop=1&playlist=s6MW8mGHfdg&controls=0"
+    allow="autoplay">
+  </iframe>
+</div>
+
+<div class="overlay"></div>
+
+<button class="cake-btn" onclick="cutCake()">🎂 Cut Cake</button>
+<button class="sound-btn" onclick="toggleSound()">🔊 Sound</button>
+
+<div class="card">
+  <div class="photo">
+    <img src="yasin.jpg">
+  </div>
+
+  <h1>🎉 Happy 22nd Birthday 🎂</h1>
+  <h2>Yasin 💙</h2>
+
+  <div class="cake" id="cake">🎂✨</div>
+
+  <p>
+    May your life be filled with happiness,<br>
+    success and endless smiles 🤍
+  </p>
+</div>
+
+<script>
+/* Sound toggle */
+let muted=true;
+function toggleSound(){
+  muted=!muted;
+  document.getElementById("yt").src=
+  "https://www.youtube.com/embed/s6MW8mGHfdg?autoplay=1"
+  +(muted?"&mute=1":"&mute=0")
+  +"&loop=1&playlist=s6MW8mGHfdg&controls=0";
+}
+
+/* Cake + Confetti */
+function cutCake(){
+  document.getElementById("cake").style.display="block";
+  for(let i=0;i<50;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"%";
+    c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    c.style.animationDuration=2+Math.random()*3+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+  }
+}
+</script>
+
+</body>
+</html>p{font-size:15px;line-height:1.6;}
 
 @keyframes fadeIn{
   from{opacity:0;transform:translateY(40px);}
